@@ -55,6 +55,8 @@ jobs:
       - run:
           <<: *set_python_version
       - run:
+          <<: *set_ruby_version
+      - run:
           <<: *run_base_setup
       - run:
           name: Gitian Build Windows
@@ -75,6 +77,8 @@ jobs:
           <<: *run_apt_packages
       - run:
           <<: *set_python_version
+      - run:
+          <<: *set_ruby_version
       - run:
           <<: *run_base_setup
       - run:
@@ -99,6 +103,8 @@ jobs:
           <<: *run_apt_packages
       - run:
           <<: *set_python_version
+      - run:
+          <<: *set_ruby_version
       - run:
           <<: *run_base_setup
       - run:
