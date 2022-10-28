@@ -68,15 +68,19 @@ def build():
         print(args.jobs)
         print(args.memory)
         print(args.commit)
-        cmdBuildArgs = os.getcwd() + '/bin/gbuild -j ' + args.jobs + ' -m ' + args.memory + ' --commit verge='+args.commit + '--url verge=' + args.url + '/verge/contrib/gitian-descriptors/gitian-linux.yml'
-        print(cmdBuildArgs)
-        subprocess.Popen(cmdBuildArgs, shell=True)
-        cmdSignArgs = os.getcwd() + '/bin/gsign -p ' + args.sign_prog + ' --signer ' + args.signer + ' --release ' + args.version + '-linux --destination ' + args.url + '/gitian.sigs/ ' + args.url + '/verge/contrib/gitian-descriptors/gitian-linux.yml'
-        print(cmdSignArgs)
-        subprocess.Popen(cmdSignArgs, shell=True)
-        cmdMoveArgs = 'mv build/out/verge-*.tar.gz build/out/src/verge-*.tar.gz ' +  os.getcwd() + '/verge-binaries/' + args.version
-        print(cmdMoveArgs)
-        subprocess.Popen(cmdMoveArgs, shell=True)
+        # cmdBuildArgs = os.getcwd() + '/bin/gbuild -j ' + args.jobs + ' -m ' + args.memory + ' --commit verge='+args.commit + '--url verge=' + args.url + '/verge/contrib/gitian-descriptors/gitian-linux.yml'
+        # print(cmdBuildArgs)
+        # subprocess.Popen(cmdBuildArgs, shell=True)
+        # cmdSignArgs = os.getcwd() + '/bin/gsign -p ' + args.sign_prog + ' --signer ' + args.signer + ' --release ' + args.version + '-linux --destination ' + args.url + '/gitian.sigs/ ' + args.url + '/verge/contrib/gitian-descriptors/gitian-linux.yml'
+        # print(cmdSignArgs)
+        # subprocess.Popen(cmdSignArgs, shell=True)
+        # cmdMoveArgs = 'mv build/out/verge-*.tar.gz build/out/src/verge-*.tar.gz ' +  os.getcwd() + '/verge-binaries/' + args.version
+        # print(cmdMoveArgs)
+        # subprocess.Popen(cmdMoveArgs, shell=True)
+        subprocess.run(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'verge='+args.commit, '--url', 'verge='+args.url, '../verge/contrib/gitian-descriptors/gitian-linux.yml'])
+        subprocess.run(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-linux', '--destination', '../gitian.sigs/', '../verge/contrib/gitian-descriptors/gitian-linux.yml'])
+        subprocess.run('mv build/out/verge-*.tar.gz build/out/src/verge-*.tar.gz ../verge-binaries/'+args.version, shell=True)
+
 
     if args.windows:
         print('\nCompiling ' + args.version + ' Windows')
